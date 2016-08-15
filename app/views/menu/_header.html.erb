@@ -20,6 +20,12 @@
         <li><%= link_to 'Blog', blog_articles_path %></li>
         <li><%= link_to 'Shop', shop_index_path %></li>
         <li><%= link_to 'About me', about_index_path %></li>
+        <% unless admin? %>
+          <li><%= link_to 'Admin', login_path %></li>
+        <% else %>
+          <li><%= link_to 'Logout', '/logout', method: :delete,
+            data: { confirm: 'Are you sure?' } %></li>
+        <% end %>
       </ul>
 
     </div><!-- /.navbar-collapse -->

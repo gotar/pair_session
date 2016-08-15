@@ -1,6 +1,8 @@
-<div style="font-family: 'Coming Soon', cursive;">
-  <%= link_to 'New article', new_blog_article_path %>
-</div>
+<% if admin? %>
+  <div style="font-family: 'Coming Soon', cursive;">
+    <%= link_to 'New article', new_blog_article_path %>
+  </div>
+<% end %>
 
 <div id="articles" class="transitions-enabled">
   <% @articles.each do |article| %>
@@ -12,11 +14,13 @@
           <%= article.title %><br/>
         </div>
 
-        <div class="panel-footer" style="font-family: 'Coming Soon', cursive;">
-          <%= link_to 'Edit', edit_blog_article_path(article) %><br/>
-          <%= link_to 'Destroy', [:blog, article], method: :delete,
-            data: { confirm: 'Are you sure?' } %>
-        </div>
+        <% if admin? %>
+          <div class="panel-footer" style="font-family: 'Coming Soon', cursive;">
+            <%= link_to 'Edit', edit_blog_article_path(article) %><br/>
+            <%= link_to 'Destroy', [:blog, article], method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>

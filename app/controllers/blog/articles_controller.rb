@@ -1,4 +1,6 @@
 class Blog::ArticlesController < ApplicationController
+  before_action :authenticate, except: [:index, :show]
+
   def index
     @articles = Article.all.order("created_at DESC")
   end
@@ -11,10 +13,6 @@ class Blog::ArticlesController < ApplicationController
     @article = Article.new
   end
 
-  def edit
-    @article = Article.find(params[:id])
-  end
-
   def create
      @article = Article.new(article_params)
 
@@ -25,11 +23,15 @@ class Blog::ArticlesController < ApplicationController
     end
   end
 
+  def edit
+    @article = Article.find(params[:id])
+  end
+
   def update
     @article = Article.find(params[:id])
 
-    if @article.update(params[:id])
-      redirect_to @article, notice: "article updated"
+    if @article.update(article_params)
+      redirect_to [:blog, @article], notice: "article updated"
     else
       render 'edit'
     end

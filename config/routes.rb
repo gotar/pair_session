@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get 'shop/index'
   get 'about/index'
 
+  get 'login' => 'session#login'
+  post 'login' => 'session#create'
+  delete 'logout' => 'session#logout'
+
   namespace :blog do
     resources :articles do
       resources :comments
